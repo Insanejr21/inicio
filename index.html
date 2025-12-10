@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>PAGINA INICIAL</title>
+	<link rel="icon" type="image/png" href="icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --glass-bg: rgba(15, 23, 42, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --neon-blue: #00f3ff;
+            --neon-purple: #bd00ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            background-color: #020205;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            perspective: 1500px;
+        }
+
+        #universe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0a0e17 0%, #000000 100%);
+        }
+
+        /* --- Container Principal --- */
+        .glass-panel {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 50px 60px;
+            width: 90%;
+            max-width: 700px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 0 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(255,255,255,0.05);
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+            overflow: hidden;
+        }
+
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 6s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        /* --- Tipografia do Cabeçalho --- */
+        #greeting {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--neon-blue), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        h1#clock {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: white;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+            margin: 0;
+        }
+
+        #date {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 35px;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        /* --- Input de Pesquisa --- */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 40px;
+            z-index: 10;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 18px 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.4);
+            color: #fff;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .search-wrapper input:focus {
+            background: rgba(0,0,0,0.7);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), inset 0 2px 5px rgba(0,0,0,0.5);
+            outline: none;
+        }
+
+        /* --- Grid de Apps --- */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: #ccc;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid transparent;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .app-item i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: 0.3s;
+        }
+
+        .app-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        /* Hover Colors */
+        .app-item:hover i.fa-youtube { background: linear-gradient(to bottom, #ff0000, #ff4444); -webkit-background-clip: text; }
+        .app-item:hover i.fa-google { background: linear-gradient(45deg, #4285F4, #9B72CB, #D96570); -webkit-background-clip: text; }
+        .app-item:hover i.fa-telegram { background: linear-gradient(to bottom, #229ED9, #0088cc); -webkit-background-clip: text; }
+        .app-item:hover i.fa-github { background: linear-gradient(to bottom, #fff, #ccc); -webkit-background-clip: text; }
+        .app-item:hover i.fa-envelope { background: linear-gradient(to bottom, #EA4335, #ff6655); -webkit-background-clip: text; }
+        .app-item:hover i.fa-robot { background: linear-gradient(to bottom, #10a37f, #55ffcc); -webkit-background-clip: text; }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="universe"></canvas>
+
+    <div class="glass-panel" id="tilt-card">
+        <div id="greeting">CARREGANDO...</div>
+        <h1 id="clock">00:00</h1>
+        <div id="date">--/--/----</div>
+        
+        <form action="https://www.google.com/search" method="get" class="search-wrapper">
+            <input type="text" name="q" placeholder="DIGITE SUA PESQUISA..." autocomplete="off" autofocus>
+        </form>
+
+        <div class="app-grid">
+            <a href="https://gemini.google.com" class="app-item">
+                <i class="fa-brands fa-google"></i>
+                <span>Gemini</span>
+            </a>
+            <a href="https://chatgpt.com" class="app-item">
+                <i class="fa-solid fa-robot"></i>
+                <span>ChatGPT</span>
+            </a>
+            <a href="https://web.telegram.org" class="app-item">
+                <i class="fa-brands fa-telegram"></i>
+                <span>Telegram</span>
+            </a>
+            <a href="https://youtube.com" class="app-item">
+                <i class="fa-brands fa-youtube"></i>
+                <span>YouTube</span>
+            </a>
+            <a href="https://github.com" class="app-item">
+                <i class="fa-brands fa-github"></i>
+                <span>GitHub</span>
+            </a>
+            <a href="https://gmail.com" class="app-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>Gmail</span>
+            </a>
+			 <a href="https://gitlab.com" class="app-item">
+			 <i class="fa-brands fa-gitlab"></i>
+                <span>Gitlab</span>
+            </a>
+			<a href="https://lmarena.ai" class="app-item">
+			 <i class="fa fa-university" aria-hidden="true"></i>
+                <span>LMarena</span>
+            </a>
+			<a href="https://www.netlify.com/" class="app-item">
+			 <i class="fa-brands fa-yelp"></i>
+                <span>Netlify</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
