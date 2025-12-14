@@ -7,7 +7,6 @@ function updateSystemInfo() {
     // 1. Relógio
     const h = String(now.getHours()).padStart(2, '0');
     const m = String(now.getMinutes()).padStart(2, '0');
-    
     const clockElement = document.getElementById('clock');
     if (clockElement) clockElement.innerText = `${h}:${m}`;
 
@@ -17,7 +16,6 @@ function updateSystemInfo() {
                    "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"];
     const month = months[now.getMonth()];
     const year = now.getFullYear();
-    
     const dateElement = document.getElementById('date');
     if (dateElement) dateElement.innerText = `${day}/${month}/${year}`;
 
@@ -27,18 +25,15 @@ function updateSystemInfo() {
     if (hour >= 5 && hour < 12) greetingText = "BOM DIA";
     else if (hour >= 12 && hour < 18) greetingText = "BOA TARDE";
     else greetingText = "BOA NOITE";
-    
     const greetingElement = document.getElementById('greeting');
     if (greetingElement) greetingElement.innerText = greetingText;
 }
 
-// Inicia o relógio
 setInterval(updateSystemInfo, 1000);
 updateSystemInfo(); 
 
 /**
  * MOVIMENTO 3D
- * Atualizado: Só ativa se a tela for maior que 768px (Desktop)
  */
 const card = document.getElementById('tilt-card');
 if (card && window.innerWidth > 768) {
@@ -56,13 +51,10 @@ const canvas = document.getElementById('universe');
 if (canvas) {
     const ctx = canvas.getContext('2d');
     let width, height;
-
-    // Ajuste de quantidade de estrelas baseado no tamanho da tela
     const isMobile = window.innerWidth <= 768;
-    const STAR_COUNT = isMobile ? 80 : 150; // Menos estrelas no mobile para performance
+    const STAR_COUNT = isMobile ? 80 : 150;
     const CONNECTION_DIST = 120;
     const MOUSE_DIST = 150;
-
     let stars = [];
     let meteors = [];
     let mouse = { x: null, y: null };
@@ -73,16 +65,8 @@ if (canvas) {
         initStars();
     }
 
-    window.addEventListener('mousemove', (e) => {
-        mouse.x = e.x;
-        mouse.y = e.y;
-    });
-    // Adiciona suporte a toque simples
-    window.addEventListener('touchmove', (e) => {
-        mouse.x = e.touches[0].clientX;
-        mouse.y = e.touches[0].clientY;
-    });
-    
+    window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+    window.addEventListener('touchmove', (e) => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; });
     window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
     window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
 
@@ -199,7 +183,8 @@ if (canvas) {
 }
 
 /**
- * LÓGICA DE PESQUISA (NOVA)
+ * LÓGICA DE PESQUISA CORRIGIDA
+ * Adicionamos os Event Listeners aqui embaixo para funcionar no MV3
  */
 function performSearch() {
     const engineUrl = document.getElementById('search-engine').value;
@@ -210,13 +195,22 @@ function performSearch() {
     }
 }
 
-// Detectar tecla ENTER no input
-const searchInput = document.getElementById('search-input');
-if (searchInput) {
-    searchInput.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            performSearch();
-        }
-    });
-}
+// Aguarda o HTML carregar completamente antes de adicionar os eventos
+document.addEventListener('DOMContentLoaded', () => {
+    // Evento de Clique no Botão
+    const searchBtn = document.getElementById('search-btn');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', performSearch);
+    }
+
+    // Evento de Tecla Enter no Input
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                performSearch();
+            }
+        });
+    }
+});
