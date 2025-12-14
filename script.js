@@ -8,7 +8,6 @@ function updateSystemInfo() {
     const h = String(now.getHours()).padStart(2, '0');
     const m = String(now.getMinutes()).padStart(2, '0');
     
-    // Verifica se o elemento existe antes de atualizar para evitar erros
     const clockElement = document.getElementById('clock');
     if (clockElement) clockElement.innerText = `${h}:${m}`;
 
@@ -39,9 +38,10 @@ updateSystemInfo();
 
 /**
  * MOVIMENTO 3D
+ * Atualizado: Só ativa se a tela for maior que 768px (Desktop)
  */
 const card = document.getElementById('tilt-card');
-if (card) {
+if (card && window.innerWidth > 768) {
     document.addEventListener('mousemove', (e) => {
         const x = (window.innerWidth / 2 - e.pageX) / 30;
         const y = (window.innerHeight / 2 - e.pageY) / 30;
@@ -57,7 +57,9 @@ if (canvas) {
     const ctx = canvas.getContext('2d');
     let width, height;
 
-    const STAR_COUNT = 150;
+    // Ajuste de quantidade de estrelas baseado no tamanho da tela
+    const isMobile = window.innerWidth <= 768;
+    const STAR_COUNT = isMobile ? 80 : 150; // Menos estrelas no mobile para performance
     const CONNECTION_DIST = 120;
     const MOUSE_DIST = 150;
 
@@ -75,7 +77,14 @@ if (canvas) {
         mouse.x = e.x;
         mouse.y = e.y;
     });
+    // Adiciona suporte a toque simples
+    window.addEventListener('touchmove', (e) => {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+    });
+    
     window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+    window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
 
     class Star {
         constructor() {
@@ -153,6 +162,7 @@ if (canvas) {
                     ctx.beginPath();
                     ctx.moveTo(stars[i].x, stars[i].y);
                     ctx.lineTo(stars[j].x, stars[j].y);
+                    ctx.stroke(); // Corrigido: Faltava o comando stroke para desenhar a linha entre estrelas
                 }
             }
             if (mouse.x) {
