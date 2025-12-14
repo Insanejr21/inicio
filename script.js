@@ -162,7 +162,7 @@ if (canvas) {
                     ctx.beginPath();
                     ctx.moveTo(stars[i].x, stars[i].y);
                     ctx.lineTo(stars[j].x, stars[j].y);
-                    ctx.stroke(); // Corrigido: Faltava o comando stroke para desenhar a linha entre estrelas
+                    ctx.stroke();
                 }
             }
             if (mouse.x) {
@@ -196,4 +196,27 @@ if (canvas) {
     window.addEventListener('resize', resize);
     resize();
     animate();
+}
+
+/**
+ * LÓGICA DE PESQUISA (NOVA)
+ */
+function performSearch() {
+    const engineUrl = document.getElementById('search-engine').value;
+    const query = document.getElementById('search-input').value;
+    
+    if (query.trim() !== "") {
+        window.location.href = engineUrl + encodeURIComponent(query);
+    }
+}
+
+// Detectar tecla ENTER no input
+const searchInput = document.getElementById('search-input');
+if (searchInput) {
+    searchInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            performSearch();
+        }
+    });
 }
