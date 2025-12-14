@@ -101,12 +101,12 @@
             font-weight: 400;
         }
 
-        /* --- Input de Pesquisa Modificado --- */
+        /* --- Input de Pesquisa --- */
         .search-wrapper {
             position: relative;
             margin-bottom: 40px;
             z-index: 10;
-            display: flex; /* Alinha select e input */
+            display: flex;
             align-items: center;
             background: rgba(0,0,0,0.4);
             border-radius: 15px;
@@ -122,7 +122,7 @@
             background: rgba(0,0,0,0.6);
         }
 
-        /* Estilo do Dropdown (Select) */
+        /* Dropdown */
         .search-select {
             background: transparent;
             color: #ccc;
@@ -134,25 +134,15 @@
             border-right: 1px solid rgba(255,255,255,0.1);
             font-weight: bold;
             border-radius: 15px 0 0 15px;
-            appearance: none; /* Remove seta padrão em alguns browsers */
+            appearance: none;
             text-align: center;
         }
+        .search-select:hover { color: white; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+        .search-select option { background: #0f172a; color: white; padding: 10px; }
 
-        .search-select:hover {
-            color: white;
-            text-shadow: 0 0 5px rgba(255,255,255,0.5);
-        }
-        
-        /* Cor de fundo escura nas opções para legibilidade */
-        .search-select option {
-            background: #0f172a; 
-            color: white;
-            padding: 10px;
-        }
-
-        /* Estilo do Input de Texto */
+        /* Input */
         .search-input {
-            flex: 1; /* Ocupa o resto do espaço */
+            flex: 1;
             padding: 15px 20px;
             border: none;
             background: transparent;
@@ -161,7 +151,7 @@
             outline: none;
         }
 
-        /* Botão da Lupa */
+        /* Botão Lupa */
         .search-btn {
             background: transparent;
             border: none;
@@ -171,11 +161,7 @@
             font-size: 1.2rem;
             transition: 0.3s;
         }
-
-        .search-btn:hover {
-            transform: scale(1.1);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
+        .search-btn:hover { transform: scale(1.1); text-shadow: 0 0 10px var(--neon-blue); }
 
         /* --- Grid de Apps --- */
         .app-grid {
@@ -215,7 +201,7 @@
             color: white;
         }
 
-        /* Hover Colors */
+        /* Cores Apps */
         .app-item:hover i.fa-youtube { background: linear-gradient(to bottom, #ff0000, #ff4444); -webkit-background-clip: text; }
         .app-item:hover i.fa-google { background: linear-gradient(45deg, #4285F4, #9B72CB, #D96570); -webkit-background-clip: text; }
         .app-item:hover i.fa-telegram { background: linear-gradient(to bottom, #229ED9, #0088cc); -webkit-background-clip: text; }
@@ -226,70 +212,20 @@
         .app-item:hover i.fa-gitlab { background: linear-gradient(to bottom, #FC6D26, #E24329); -webkit-background-clip: text; }
         .app-item:hover i.fa-university { background: linear-gradient(to bottom, #c0c0c0, #e0e0e0); -webkit-background-clip: text; }
 
-
-        /* --- RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS --- */
+        /* Mobile */
         @media (max-width: 768px) {
-            body {
-                overflow-y: auto;
-                height: auto;
-                padding: 20px 0;
-                display: block;
-            }
-
-            .glass-panel {
-                margin: 20px auto; 
-                width: 92%; 
-                padding: 30px 20px;
-            }
-
-            h1#clock {
-                font-size: 3.5rem;
-            }
-
-            #greeting {
-                font-size: 1rem;
-                letter-spacing: 2px;
-            }
-
-            #date {
-                margin-bottom: 25px;
-            }
-
-            .search-wrapper {
-                margin-bottom: 30px;
-                padding: 5px;
-            }
-
-            .search-select {
-                padding: 10px;
-                font-size: 0.9rem;
-                max-width: 80px; /* Reduz largura no mobile */
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-
-            .search-input {
-                padding: 10px;
-                font-size: 1rem;
-            }
-
-            .app-grid {
-                gap: 12px;
-                grid-template-columns: repeat(3, 1fr); 
-            }
-
-            .app-item {
-                padding: 15px 5px;
-            }
-
-            .app-item i {
-                font-size: 1.5rem;
-                margin-bottom: 5px;
-            }
-
-            .app-item span {
-                font-size: 0.75rem;
-            }
+            body { overflow-y: auto; height: auto; padding: 20px 0; display: block; }
+            .glass-panel { margin: 20px auto; width: 92%; padding: 30px 20px; }
+            h1#clock { font-size: 3.5rem; }
+            #greeting { font-size: 1rem; letter-spacing: 2px; }
+            #date { margin-bottom: 25px; }
+            .search-wrapper { margin-bottom: 30px; padding: 5px; }
+            .search-select { padding: 10px; font-size: 0.9rem; max-width: 80px; text-overflow: ellipsis; overflow: hidden; }
+            .search-input { padding: 10px; font-size: 1rem; }
+            .app-grid { gap: 12px; grid-template-columns: repeat(3, 1fr); }
+            .app-item { padding: 15px 5px; }
+            .app-item i { font-size: 1.5rem; margin-bottom: 5px; }
+            .app-item span { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -317,48 +253,21 @@
             
             <input type="text" id="search-input" class="search-input" placeholder="DIGITE SUA PESQUISA..." autocomplete="off" autofocus>
             
-            <button class="search-btn" onclick="performSearch()">
+            <button id="search-btn" class="search-btn">
                 <i class="fa fa-search"></i>
             </button>
         </div>
 
         <div class="app-grid">
-            <a href="https://gemini.google.com" class="app-item">
-                <i class="fa-brands fa-google"></i>
-                <span>Gemini</span>
-            </a>
-            <a href="https://chatgpt.com" class="app-item">
-                <i class="fa-solid fa-robot"></i>
-                <span>ChatGPT</span>
-            </a>
-            <a href="https://web.telegram.org" class="app-item">
-                <i class="fa-brands fa-telegram"></i>
-                <span>Telegram</span>
-            </a>
-            <a href="https://youtube.com" class="app-item">
-                <i class="fa-brands fa-youtube"></i>
-                <span>YouTube</span>
-            </a>
-            <a href="https://github.com" class="app-item">
-                <i class="fa-brands fa-github"></i>
-                <span>GitHub</span>
-            </a>
-            <a href="https://gmail.com" class="app-item">
-                <i class="fa-solid fa-envelope"></i>
-                <span>Gmail</span>
-            </a>
-             <a href="https://gitlab.com" class="app-item">
-             <i class="fa-brands fa-gitlab"></i>
-                <span>Gitlab</span>
-            </a>
-            <a href="https://lmarena.ai" class="app-item">
-             <i class="fa fa-university" aria-hidden="true"></i>
-                <span>LMarena</span>
-            </a>
-            <a href="https://www.netlify.com/" class="app-item">
-             <i class="fa-brands fa-yelp"></i>
-                <span>Netlify</span>
-            </a>
+            <a href="https://gemini.google.com" class="app-item"><i class="fa-brands fa-google"></i><span>Gemini</span></a>
+            <a href="https://chatgpt.com" class="app-item"><i class="fa-solid fa-robot"></i><span>ChatGPT</span></a>
+            <a href="https://web.telegram.org" class="app-item"><i class="fa-brands fa-telegram"></i><span>Telegram</span></a>
+            <a href="https://youtube.com" class="app-item"><i class="fa-brands fa-youtube"></i><span>YouTube</span></a>
+            <a href="https://github.com" class="app-item"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+            <a href="https://gmail.com" class="app-item"><i class="fa-solid fa-envelope"></i><span>Gmail</span></a>
+            <a href="https://gitlab.com" class="app-item"><i class="fa-brands fa-gitlab"></i><span>Gitlab</span></a>
+            <a href="https://lmarena.ai" class="app-item"><i class="fa fa-university"></i><span>LMarena</span></a>
+            <a href="https://www.netlify.com/" class="app-item"><i class="fa-brands fa-yelp"></i><span>Netlify</span></a>
         </div>
     </div>
 
