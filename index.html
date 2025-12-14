@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- ESTILOS GERAIS --- */
         :root {
             --glass-bg: rgba(15, 23, 42, 0.4);
             --glass-border: rgba(255, 255, 255, 0.1);
@@ -37,7 +38,6 @@
             background: radial-gradient(circle at center, #0a0e17 0%, #000000 100%);
         }
 
-        /* --- Container Principal --- */
         .glass-panel {
             position: relative;
             background: var(--glass-bg);
@@ -54,25 +54,6 @@
             transition: transform 0.1s ease-out;
         }
 
-        .glass-panel::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: shine 6s infinite linear;
-            pointer-events: none;
-            overflow: hidden;
-            border-radius: 24px;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-
-        /* --- Tipografia do Cabeçalho --- */
         #greeting {
             font-size: 1.2rem;
             text-transform: uppercase;
@@ -101,69 +82,70 @@
             font-weight: 400;
         }
 
-        /* --- Input de Pesquisa --- */
+        /* --- BARRA DE PESQUISA CORRIGIDA --- */
         .search-wrapper {
             position: relative;
             margin-bottom: 40px;
             z-index: 10;
             display: flex;
             align-items: center;
+            /* A estilização visual (borda/fundo) agora fica no PAI */
             background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1); 
             border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
-            padding: 5px;
+            padding: 0; /* Remove padding interno para os filhos encostarem */
             transition: 0.3s;
+            overflow: hidden; /* Garante que nada saia das bordas arredondadas */
         }
 
+        /* Efeito de brilho ao clicar em qualquer lugar da barra */
         .search-wrapper:focus-within {
             border-color: var(--neon-blue);
             box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), inset 0 2px 5px rgba(0,0,0,0.5);
             background: rgba(0,0,0,0.6);
         }
 
-        /* Dropdown */
         .search-select {
             background: transparent;
-            color: #ccc;
+            color: #fff;
+            font-weight: bold;
             border: none;
             outline: none;
-            padding: 15px;
+            padding: 18px 15px; /* Altura ajustada */
             font-size: 1rem;
             cursor: pointer;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            font-weight: bold;
-            border-radius: 15px 0 0 15px;
-            appearance: none;
+            border-right: 1px solid rgba(255,255,255,0.1); /* Divisória */
             text-align: center;
         }
-        .search-select:hover { color: white; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-        .search-select option { background: #0f172a; color: white; padding: 10px; }
+        .search-select option { background: #0f172a; color: white; }
 
-        /* Input */
         .search-input {
-            flex: 1;
-            padding: 15px 20px;
-            border: none;
-            background: transparent;
+            flex: 1; /* Ocupa todo o espaço restante */
+            padding: 18px 15px;
+            border: none; /* Remove borda do input */
+            background: transparent; /* Remove fundo do input */
             color: #fff;
             font-size: 1.1rem;
             outline: none;
+            min-width: 0; /* Ajuda no mobile a não estourar */
         }
 
-        /* Botão Lupa */
         .search-btn {
             background: transparent;
             border: none;
             color: var(--neon-blue);
-            padding: 0 20px;
+            padding: 0 20px; /* Espaço para o dedo no mobile */
             cursor: pointer;
             font-size: 1.2rem;
             transition: 0.3s;
+            height: 100%;
+            display: flex;
+            align-items: center;
         }
         .search-btn:hover { transform: scale(1.1); text-shadow: 0 0 10px var(--neon-blue); }
 
-        /* --- Grid de Apps --- */
+        /* --- APP GRID --- */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -181,7 +163,7 @@
             color: #ccc;
             background: rgba(255,255,255,0.03);
             border: 1px solid transparent;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: 0.3s;
         }
 
         .app-item i {
@@ -201,27 +183,24 @@
             color: white;
         }
 
-        /* Cores Apps */
-        .app-item:hover i.fa-youtube { background: linear-gradient(to bottom, #ff0000, #ff4444); -webkit-background-clip: text; }
+        /* Cores Hover */
         .app-item:hover i.fa-google { background: linear-gradient(45deg, #4285F4, #9B72CB, #D96570); -webkit-background-clip: text; }
+        .app-item:hover i.fa-robot { background: linear-gradient(to bottom, #10a37f, #55ffcc); -webkit-background-clip: text; }
         .app-item:hover i.fa-telegram { background: linear-gradient(to bottom, #229ED9, #0088cc); -webkit-background-clip: text; }
+        .app-item:hover i.fa-youtube { background: linear-gradient(to bottom, #ff0000, #ff4444); -webkit-background-clip: text; }
         .app-item:hover i.fa-github { background: linear-gradient(to bottom, #fff, #ccc); -webkit-background-clip: text; }
         .app-item:hover i.fa-envelope { background: linear-gradient(to bottom, #EA4335, #ff6655); -webkit-background-clip: text; }
-        .app-item:hover i.fa-robot { background: linear-gradient(to bottom, #10a37f, #55ffcc); -webkit-background-clip: text; }
-        .app-item:hover i.fa-yelp { background: linear-gradient(to bottom, #00C7B7, #2adbdc); -webkit-background-clip: text; }
         .app-item:hover i.fa-gitlab { background: linear-gradient(to bottom, #FC6D26, #E24329); -webkit-background-clip: text; }
         .app-item:hover i.fa-university { background: linear-gradient(to bottom, #c0c0c0, #e0e0e0); -webkit-background-clip: text; }
+        .app-item:hover i.fa-yelp { background: linear-gradient(to bottom, #00C7B7, #2adbdc); -webkit-background-clip: text; }
 
-        /* Mobile */
         @media (max-width: 768px) {
             body { overflow-y: auto; height: auto; padding: 20px 0; display: block; }
             .glass-panel { margin: 20px auto; width: 92%; padding: 30px 20px; }
             h1#clock { font-size: 3.5rem; }
-            #greeting { font-size: 1rem; letter-spacing: 2px; }
-            #date { margin-bottom: 25px; }
-            .search-wrapper { margin-bottom: 30px; padding: 5px; }
-            .search-select { padding: 10px; font-size: 0.9rem; max-width: 80px; text-overflow: ellipsis; overflow: hidden; }
-            .search-input { padding: 10px; font-size: 1rem; }
+            #greeting { font-size: 1rem; }
+            .search-select { padding: 15px 10px; font-size: 0.9rem; max-width: 80px; text-overflow: ellipsis; overflow: hidden; }
+            .search-input { padding: 15px 10px; font-size: 1rem; }
             .app-grid { gap: 12px; grid-template-columns: repeat(3, 1fr); }
             .app-item { padding: 15px 5px; }
             .app-item i { font-size: 1.5rem; margin-bottom: 5px; }
@@ -271,6 +250,204 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            /* --- 1. LÓGICA DE PESQUISA --- */
+            const searchBtn = document.getElementById('search-btn');
+            const searchInput = document.getElementById('search-input');
+            const searchEngine = document.getElementById('search-engine');
+
+            function performSearch() {
+                const query = searchInput.value;
+                const engine = searchEngine.value;
+                if (query.trim() !== "") {
+                    window.location.href = engine + encodeURIComponent(query);
+                }
+            }
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', performSearch);
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        performSearch();
+                    }
+                });
+            }
+
+            /* --- 2. RELÓGIO E DATA --- */
+            function updateSystemInfo() {
+                const now = new Date();
+                
+                const h = String(now.getHours()).padStart(2, '0');
+                const m = String(now.getMinutes()).padStart(2, '0');
+                const clock = document.getElementById('clock');
+                if (clock) clock.innerText = `${h}:${m}`;
+
+                const day = String(now.getDate()).padStart(2, '0');
+                const months = ["JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO", 
+                            "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"];
+                const month = months[now.getMonth()];
+                const year = now.getFullYear();
+                const dateEl = document.getElementById('date');
+                if (dateEl) dateEl.innerText = `${day}/${month}/${year}`;
+
+                const hour = now.getHours();
+                let msg = hour >= 5 && hour < 12 ? "BOM DIA" :
+                          hour >= 12 && hour < 18 ? "BOA TARDE" : "BOA NOITE";
+                const greet = document.getElementById('greeting');
+                if (greet) greet.innerText = msg;
+            }
+            setInterval(updateSystemInfo, 1000);
+            updateSystemInfo();
+
+            /* --- 3. EFEITO 3D --- */
+            const card = document.getElementById('tilt-card');
+            if (card && window.innerWidth > 768) {
+                document.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth / 2 - e.pageX) / 30;
+                    const y = (window.innerHeight / 2 - e.pageY) / 30;
+                    card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+                });
+            }
+
+            /* --- 4. FUNDO DO UNIVERSO --- */
+            const canvas = document.getElementById('universe');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height;
+                const isMobile = window.innerWidth <= 768;
+                const STAR_COUNT = isMobile ? 80 : 150;
+                let stars = [], meteors = [];
+                let mouse = { x: null, y: null };
+
+                function resize() {
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                    initStars();
+                }
+
+                window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+                window.addEventListener('touchmove', e => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; });
+                window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+                window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
+                window.addEventListener('resize', resize);
+
+                class Star {
+                    constructor() {
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                        this.vx = (Math.random() - 0.5) * 0.5;
+                        this.vy = (Math.random() - 0.5) * 0.5;
+                        this.size = Math.random() * 1.5 + 0.5;
+                        this.color = `rgba(255, 255, 255, ${Math.random() * 0.5 + 0.3})`;
+                    }
+                    update() {
+                        this.x += this.vx; this.y += this.vy;
+                        if (this.x < 0 || this.x > width) this.vx *= -1;
+                        if (this.y < 0 || this.y > height) this.vy *= -1;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fillStyle = this.color;
+                        ctx.fill();
+                    }
+                }
+
+                class Meteor {
+                    constructor() { this.reset(); }
+                    reset() {
+                        this.x = Math.random() * width + width * 0.5;
+                        this.y = -100;
+                        this.angle = Math.PI / 4 + (Math.random() * 0.2 - 0.1);
+                        this.speed = Math.random() * 10 + 10;
+                        this.size = Math.random() * 2 + 1;
+                        this.length = Math.random() * 150 + 100;
+                        this.active = true;
+                        this.color = Math.random() > 0.8 ? '#00f3ff' : '#ffffff';
+                    }
+                    update() {
+                        this.x -= Math.cos(this.angle) * this.speed;
+                        this.y += Math.sin(this.angle) * this.speed;
+                        if (this.x < -200 || this.y > height + 200) this.active = false;
+                    }
+                    draw() {
+                        if (!this.active) return;
+                        ctx.shadowBlur = 15;
+                        ctx.shadowColor = this.color;
+                        const tailX = this.x + Math.cos(this.angle) * this.length;
+                        const tailY = this.y - Math.sin(this.angle) * this.length;
+                        const gradient = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
+                        gradient.addColorStop(0, this.color);
+                        gradient.addColorStop(1, 'transparent');
+                        ctx.beginPath();
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(tailX, tailY);
+                        ctx.strokeStyle = gradient;
+                        ctx.lineWidth = this.size;
+                        ctx.lineCap = 'round';
+                        ctx.stroke();
+                        ctx.shadowBlur = 0;
+                    }
+                }
+
+                function initStars() {
+                    stars = [];
+                    for (let i = 0; i < STAR_COUNT; i++) stars.push(new Star());
+                }
+
+                function drawLines() {
+                    for (let i = 0; i < stars.length; i++) {
+                        for (let j = i + 1; j < stars.length; j++) {
+                            const dx = stars[i].x - stars[j].x;
+                            const dy = stars[i].y - stars[j].y;
+                            const dist = Math.sqrt(dx*dx + dy*dy);
+                            if (dist < 120) {
+                                ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist/120 * 0.1})`;
+                                ctx.lineWidth = 0.5;
+                                ctx.beginPath();
+                                ctx.moveTo(stars[i].x, stars[i].y);
+                                ctx.lineTo(stars[j].x, stars[j].y);
+                                ctx.stroke();
+                            }
+                        }
+                        if (mouse.x) {
+                            const dx = stars[i].x - mouse.x;
+                            const dy = stars[i].y - mouse.y;
+                            const dist = Math.sqrt(dx*dx + dy*dy);
+                            if (dist < 150) {
+                                ctx.strokeStyle = `rgba(100, 200, 255, ${1 - dist/150})`;
+                                ctx.lineWidth = 1;
+                                ctx.beginPath();
+                                ctx.moveTo(stars[i].x, stars[i].y);
+                                ctx.lineTo(mouse.x, mouse.y);
+                                ctx.stroke();
+                                stars[i].x -= dx * 0.03;
+                                stars[i].y -= dy * 0.03;
+                            }
+                        }
+                    }
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
+                    stars.forEach(s => { s.update(); s.draw(); });
+                    drawLines();
+                    if (Math.random() < 0.03) meteors.push(new Meteor());
+                    meteors = meteors.filter(m => m.active);
+                    meteors.forEach(m => { m.update(); m.draw(); });
+                    requestAnimationFrame(animate);
+                }
+
+                resize();
+                animate();
+            }
+        });
+    </script>
 </body>
 </html>
